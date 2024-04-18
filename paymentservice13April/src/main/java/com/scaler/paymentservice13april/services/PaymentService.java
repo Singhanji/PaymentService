@@ -2,13 +2,12 @@ package com.scaler.paymentservice13april.services;
 
 import com.scaler.paymentservice13april.models.Payment;
 import com.scaler.paymentservice13april.models.PaymentGateway;
+import com.scaler.paymentservice13april.models.PaymentStatus;
 import com.scaler.paymentservice13april.paymentGateways.PaymentGatewayFactory;
 import com.scaler.paymentservice13april.paymentGateways.PaymentGatewayInterface;
-import com.scaler.paymentservice13april.models.PaymentStatus;
 import com.scaler.paymentservice13april.paymentGateways.RazorPaymentGateway;
 import com.scaler.paymentservice13april.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,8 +40,9 @@ public class PaymentService {
         String userMobile = "+919876543210";
 
         PaymentGatewayInterface paymentGateway = paymentGatewayFactory.getBestPaymentGateway();
-
-        String paymentLink = paymentGateway.createPaymentLink(
+        
+        String paymentLink;
+        paymentLink = paymentGateway.createPaymentLink(
                 amount,
                 userName,
                 userEmail,

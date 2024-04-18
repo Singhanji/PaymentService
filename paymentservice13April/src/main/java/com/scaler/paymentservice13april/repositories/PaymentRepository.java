@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
     Payment save(Payment payment);
+//    Payment create(Payment payment);
 
     Payment findByPaymentGatewayReferenceId(String paymentGatewayReferenceId);
 }
