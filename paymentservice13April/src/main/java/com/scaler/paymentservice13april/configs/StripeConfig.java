@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class StripeConfig {
 
 
-    @Value("${stripe.apikey}")
+    @Value(value = "${stripe.secret_key}")
     private String stripeKeySecret;
 
     @Bean
@@ -18,4 +18,11 @@ public class StripeConfig {
         Stripe.apiKey = stripeKeySecret;
         return new StripeClient(stripeKeySecret);
     }
+
+//    @Bean
+//    public StripeClient stripeClient(){
+//        Stripe.apiKey=stripeKeySecret;
+//        return new StripeClient(
+//                System.getenv("STRIPE_KEY_SECRET"));
+//    }
 }

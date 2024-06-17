@@ -1,0 +1,69 @@
+#
+# Build stage
+#
+#FROM maven:3.8.3-openjdk-17 AS build
+#
+## Set the working directory for Maven build
+#WORKDIR /home/app
+#
+## Copy the pom.xml file and source code
+#COPY paymentservice13April/pom.xml /home/app
+#COPY paymentservice13April/src /home/app/src
+#
+## Run Maven build to create the JAR file
+#RUN mvn clean package
+
+#
+# Run stage
+#
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:17-alpine
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+ARG JAR_FILE=/paymentservice13April/target/*.jar
+ARG RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID
+COPY ${JAR_FILE} app.jar
+#ARG RAZORPAY_KEY_ID
+#ARG RAZORPAY_KEY_SECRET
+#ARG STRIPE_KEY_SECRET
+#ARG DBHOST
+#ARG DBUSER
+#ARG DBPASSWORD
+#ENV RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID
+#ENV RAZORPAY_KEY_SECRET=$RAZORPAY_KEY_SECRET
+#ENV STRIPE_KEY_SECRET=$STRIPE_KEY_SECRET
+#ENV DBHOST=$DBHOST
+#ENV DBUSER=$DBUSER
+#ENV DBPASSWORD=$DBPASSWORD
+EXPOSE 8080
+#ENV spring.datasource.url=jdbc:mysql://192.168.100.108:3306/paymentservice12april
+ENTRYPOINT ["java","-jar","/app.jar"]
+#
+#
+## Set the working directory in the container
+#WORKDIR /app
+#
+## Copy the built JAR file from the build stage
+#COPY --from=build /home/app/target/paymentservice13April-0.0.1-SNAPSHOT.jar /app/paymentservice13April-0.0.1-SNAPSHOT.jar
+#
+## Expose the application port
+#EXPOSE 8080
+#
+## Command to run the application
+#ENTRYPOINT ["java", "-Dserver.port=8080", "-jar", "/app/paymentservice13April-0.0.1-SNAPSHOT.jar"]
+#
+
+
+## Use an official OpenJDK runtime as a parent image
+#FROM openjdk:17-alpine
+#
+#RUN mkdir -p /app/paymentservice13April/target
+## Copy the JAR file into the container
+## COPY app.jar /app/app.jar
+#COPY paymentservice13April/target/paymentservice13April-0.0.1-SNAPSHOT.jar /app/paymentservice13April/target
+#
+## Set the working directory in the container
+#WORKDIR /app
+#
+#EXPOSE 8080
+#ENTRYPOINT ["java", "-Dserver.port=8080", "-jar", "paymentservice13April/target/paymentservice13April-0.0.1-SNAPSHOT.jar"]

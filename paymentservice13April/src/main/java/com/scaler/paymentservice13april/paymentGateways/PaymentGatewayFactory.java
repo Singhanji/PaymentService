@@ -20,8 +20,8 @@ public class PaymentGatewayFactory {
 //        int random = new Random().nextInt();
 //        if (random % 2 == 0) return new RazorPaymentGateway();
 //        return new StripePaymentGateway();
-//        return razorPaymentGateway;
-        return stripePaymentGateway;
+        return razorPaymentGateway;
+//        return stripePaymentGateway;
 
     }
 

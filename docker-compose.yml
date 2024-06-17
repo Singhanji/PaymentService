@@ -1,0 +1,56 @@
+version: '3.8'
+#
+services:
+  api_service:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - spring.datasource.url=jdbc:mysql://192.168.100.108:3306/paymentservice12april
+    depends_on:
+      - mysqldb
+#    volumes:
+#      - .m2:/root/.m2
+
+  mysqldb:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 3306:3306
+#    networks:
+#      - springapimysql-net
+    environment:
+      MYSQL_DATABASE: paymentservice12april
+      MYSQL_USER: aether
+      MYSQL_PASSWORD: redhat@123
+      MYSQL_ROOT_PASSWORD: redhat@123
+#networks:
+##  springapimysql-net:
+#
+#
+#
+#  # paymentservice:
+#  #   build:
+#  #     context: .
+#  #     dockerfile: Dockerfile-app
+#  #   ports:
+#  #     - "8080:8080"
+#  #   environment:
+#  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/paymentservice
+#  #     - SPRING_DATASOURCE_USERNAME=root
+#  #     - SPRING_DATASOURCE_PASSWORD=Redhat@123
+#  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#  #   depends_on:
+#  #     - mysql
+#
+##  mysql:
+##    image: mysql:8.0
+##    environment:
+##      - MYSQL_ROOT_PASSWORD=Redhat@123
+##      - MYSQL_DATABASE=paymentservice
+##    volumes:
+##      - mysql-data:/var/lib/mysql
+##
+##volumes:
+##  mysql-data:

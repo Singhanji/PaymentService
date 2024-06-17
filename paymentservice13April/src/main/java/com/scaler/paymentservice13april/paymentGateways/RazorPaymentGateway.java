@@ -6,6 +6,7 @@ import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import com.scaler.paymentservice13april.models.PaymentStatus;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,9 @@ public class RazorPaymentGateway implements PaymentGatewayInterface{
 
     private final RazorpayClient razorpayClient;
 
+//    @Autowired   // added here
     public RazorPaymentGateway(RazorpayClient razorpayClient){
+
         this.razorpayClient = razorpayClient;
     }
 

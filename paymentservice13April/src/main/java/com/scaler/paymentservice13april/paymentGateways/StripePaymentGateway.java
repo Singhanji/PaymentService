@@ -88,7 +88,7 @@ public class StripePaymentGateway implements PaymentGatewayInterface {
         return paymentLink.getUrl();
 
     }
-    
+
     @Override
     public PaymentStatus getPaymentStatus(String paymentId) {
         return null;

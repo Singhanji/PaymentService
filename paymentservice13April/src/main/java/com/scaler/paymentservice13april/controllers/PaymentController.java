@@ -12,11 +12,11 @@ import com.scaler.paymentservice13april.services.PaymentService;
 public class PaymentController {
 
     @Autowired
-    private  PaymentService paymentService;
+    private final PaymentService paymentService;
 
-//    public PaymentController(PaymentService paymentService){
-//        this.paymentService = paymentService;
-//    }
+    public PaymentController(PaymentService paymentService){
+        this.paymentService = paymentService;
+    }
 
     @PostMapping()
     public CreatePaymentLinkResponseDto createPaymentLink(@RequestBody CreatePaymentLinkRequestDto request){
