@@ -2,7 +2,7 @@
 
 APP_DOCKERFILE=Dockerfile-app
 APP_IMAGE=sbapp
-APP_CONTAINER=myapp
+APP_CONTAINER=paymentservice
 DB_CONTAINER=paymentdb
 
 
@@ -32,7 +32,7 @@ cleanup_APP(){
 
 mysql(){
   podman run -d --name $DB_CONTAINER -p 3306:3306 \
-    -e MYSQL_DATABASE=paymentservice12april \
+    -e MYSQL_DATABASE=$DB_NAME \
     -e MYSQL_USER=$MYSQL_USER \
     -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
     -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
@@ -47,12 +47,6 @@ mysql(){
 paymentiamge_build(){
   #DBHOST must be: FQDN:3306
   podman build -t $APP_IMAGE -f $APP_DOCKERFILE
-#    --build-arg RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID \
-#    --build-arg RAZORPAY_KEY_SECRET=$RAZORPAY_KEY_SECRET \
-#    --build-arg STRIPE_KEY_SECRET=$STRIPE_KEY_SECRET \
-#    --build-arg DBHOST=$DBHOST \
-#    --build-arg DBUSER=$MYSQL_USER \
-#    --build-arg DBPASSWORD=$MYSQL_PASSWORD
 }
 
 paymentapp(){
@@ -60,8 +54,9 @@ paymentapp(){
     -e RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID \
     -e RAZORPAY_KEY_SECRET=$RAZORPAY_KEY_SECRET \
     -e STRIPE_KEY_SECRET=$STRIPE_KEY_SECRET \
-    -e DBHOST=$DBHOST \
+    -e DB_HOST=$DB_HOST \
     -e DBUSER=$MYSQL_USER \
+    -e DB_NAME=$DB_NAME \
     -e DBPASSWORD=$MYSQL_PASSWORD \
     $APP_IMAGE:latest
 }
@@ -100,7 +95,8 @@ run)
     paymentapp
   ;;
 *)
-  echo -n "Invalid option."
+  # shellcheck disable=SC2028
+  echo -n "Invalid option. \n"
   exit 1
   ;;
 esac
