@@ -75,10 +75,8 @@ mvn clean install
 ## Run the Application in Container
 - app run in container using podman. Setup.sh is a script to help build and run the application.
 
-```agsl
-setup.sh help
-```
-```
+```bash
+./setup.sh help
 Run => ./setup.sh file for help, Command, build the image, and run the container.
 Eg =>  ./setup.sh help ==> (for help)
       
@@ -94,21 +92,24 @@ Output: Usage
        run             Run the payment app container
 ```
 
-- run db container
-```agsl
+- Start database container
+```bash
 ./setup.sh mysql
 ```
-- building app image
-```agsl
+- Build app image
+```bash
 ./setup.sh build
 ```
-- run app container
-```agsl
+- Start app container
+```bash
 ./setup.sh run
 ```
 
-# API Endpoints
-
+# Access application
+- The application exposes an API endpoint which can access using host ip and port 8080.
+```
+http://[HOST IP]:8080/
+```
 - Here are the primary API endpoints provided by the Payment Service:
 ```
 POST /api/payments: Initiates a payment request
@@ -135,6 +136,14 @@ https://razorpay.com/docs/payments/payment-gateway/ecommerce-plugins/wix/test-in
 ```
 https://docs.stripe.com/testing
 ```
+### Additional Information
+- Endpoints
+  - The application currently supports a single 'POST' endpoint for sending orderId.
+
+- Transaction History Status
+  - To view transaction history and payment statuses, please visit your Razorpay or Stripe dashboard.
+
+
 # Troubleshooting
 
 - Database Connection Issues:
@@ -152,3 +161,13 @@ https://docs.stripe.com/testing
     * Check the application logs for any runtime exceptions.
     * Ensure all required environment variables are set correctly.
 
+
+# Todos
+- Implement 'GET' Endpoint: 
+  - Develop a GET endpoint to retrieve the status and payment history of transactions completed by customers.
+- Enhanced Logging: 
+  - Implement application logs to capture runtime exceptions and provide detailed error messages for better debugging and monitoring.
+- Payment Gateway Integration: 
+  - Extend support for additional payment gateways to provide more options for customers.
+- Transaction Alerts: 
+  - Implement email or SMS a alerts for transaction statuses to notify customers about payment confirmations, failures, and refunds.
